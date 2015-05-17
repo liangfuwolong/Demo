@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+23424234
+    $name
+
+    #foreach($user in $users)
+    <li><a href="user/${user.id}">${user.name}</a></li>
+    #end
+
+    #define($content)
+    <p>#springMessage("Hello"): $name</p>
+    <p>#springMessage("Greetings")</p>
+    #end
+</body>
+</html>

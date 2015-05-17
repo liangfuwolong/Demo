@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="../css/purr.css" type="text/css" rel="stylesheet" media="all">
+    <script src="../js/lib/modernizr/modernizr.custom.js"></script>
+
+
+    <script src="../js/lib/jquery/1.7.2/jquery.js"></script>
+    <script src="../js/lib/jquery/1.7.2/jqueryExtend.js"></script>
+    <script src="../js/common/ajax.js"></script>
+    <script src="../js/common/Table.js"></script>
+    <script src="../js/common/Comm.js"></script>
+    <script type="text/javascript" src="../js/lib/handlebars/1.0.6/handlebars.js"></script>
+    <script type="text/javascript" src="../js/lib/handlebars/1.0.6/helpers.js"></script>
+    <script type="text/javascript">
+
+        $(function(){
+            $.ajax( {
+                type : "post",
+                url : "/Hello/user/list",
+                contentType:"application/json",
+                data:JSON.stringify({start:0,limit:3}),
+                dataType:"json",
+                success : function(data) {
+                  //  data=eval('('+data+')');
+                    showTable(data);
+                }
+            });
+
+        });
+
+function showTable(data)
+{
+    var showField= [
+        {id:'id',name:'ID'},
+        {id:'userName',name:'姓名'},
+        {id:'email',name:'人员'},
+        {id:'birthDay',name:'出生日期'},
+        {buttons:['修改'],name:'修改',func:['modUser']}
+
+
+    ];
+    var enumData=
+    {
+        'status':[{codeValue:'0',codeName:''},{codeValue:'1',codeName:'待处理'},{codeValue:'2',codeName:'通过'},{codeValue:'3',codeName:'退回'}]
+    };
+    var tableJson={};
+    tableJson.id="userTable";
+    tableJson.beans=data;
+    var showField=showField;
+    table=new Table(tableJson,showField,enumData);
+    table.show();
+
+}
+function modUser(obj)
+{
+    var index = $(obj).parent().parent().index();
+    var data = table.getRowData(index);
+    $.ajax( {
+        type : "post",
+        url : "/Hello/user/update",
+        contentType:"application/json",
+        data:JSON.stringify({id:data.id,userName:'修改后'}),
+        dataType:"json",
+        success : function(data) {
+            alert(1);
+        }
+    });
+}
+</script>
+</head>
+<body>
+    <div id="userTable">
+
+    </div>
+</body>
+</html>

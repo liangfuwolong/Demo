@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="com.test.web.business.model.User">
+    <typeAlias alias="User"
+               type="com.test.web.business.model.User" />
+    <resultMap id="userinfo" class="User" >
+        <result column="id" property="id" jdbcType="int" />
+        <result column="userName" property="userName" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="birthDay" property="birthDay" jdbcType="DATE" />
+
+    </resultMap>
+
+    <insert id="save" parameterClass="User">
+        INSERT INTO USER(userName,email,birthDay)
+        VALUES(#userName#,#email#,#birthDay#);
+    </insert>
+
+
+    <update id="update" parameterClass="User" >
+        update USER
+        <dynamic prepend="set" >
+            <isNotNull prepend="," property="userName" >
+                userName = #userName#
+            </isNotNull>
+        </dynamic>
+        where id = #id#
+    </update>
+
+    <!-- 获得全查询列表 -->
+    <select id="getAll" resultMap="userinfo">
+        select * from user order by id
+    </select>
+
+
+    <select id="selectById" parameterClass="int" resultClass="User">
+        select * from user where id = #id#
+    </select>
+
+
+
+</sqlMap>

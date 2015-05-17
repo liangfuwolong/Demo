@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script type="text/javascript" src="jquery-1.7.2.min.js">
+</script>
+<script type="text/javascript">
+    $(function() {
+        getjson();
+    });
+
+    function getjson() {
+        $.ajax( {
+            type : "post",
+            url : "test/save",
+            contentType:"application/json",
+
+            data:JSON.stringify({id:5,name:'tttt'}),
+            dataType:"json",
+            success : function(msg) {
+                alert(msg);
+            }
+        });
+    }
+</script>
+<body>
+23424234
+</body>
+</html>

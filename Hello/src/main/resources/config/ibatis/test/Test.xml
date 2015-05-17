@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="com.comverse.timesheet.web.mapper.Test">
+    <typeAlias alias="TestTable"
+               type="com.test.web.business.model.TestTable" />
+    <resultMap id="ibatisTest" class="TestTable" >
+        <result column="id" property="id" jdbcType="int" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <insert id="save" parameterClass="TestTable">
+        INSERT INTO testtable (ID,NAME)
+        VALUES(#id#,#name#)
+    </insert>
+
+    <!-- 获得全查询列表 -->
+    <select id="getAll" resultMap="ibatisTest">
+        select * from testtable
+    </select>
+
+    <select id="selectById" parameterClass="int" resultClass="TestTable">
+        select * from testtable where id = #id#
+    </select>
+
+    <update id="modify" parameterClass="TestTable" >
+        update testtable
+        <dynamic prepend="set" >
+
+
+            <isNotNull prepend="," property="name" >
+                name = '$name$'
+            </isNotNull>
+        </dynamic>
+        where id = $id$
+    </update>
+
+</sqlMap>
