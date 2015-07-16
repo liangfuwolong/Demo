@@ -1,0 +1,1 @@
+{"name":"MONSTER","tagline":"java cache","body":"  在高流量应用的建设中，缓存的重要性不言而喻。memcache，redis，mongo的使用非常普遍，但是如何在保证数据有效性的同时，增加缓存的命中率，便是一个共同的难点。\r\n","google":"","note":"Don't delete this file! It's used internally to help with page regeneration."}
